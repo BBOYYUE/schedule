@@ -1,4 +1,4 @@
-import { Renderer, TextureLoader,THREE } from 'expo-three';
+import { Renderer, TextureLoader, THREE } from 'expo-three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -17,7 +17,7 @@ class SceneUtil {
     this.ctrl = undefined
     this.focusPointMesh = undefined
   }
-  createSkyBox (option) {
+  createSkyBox(option) {
     const skyBoxGeometry = new THREE.SphereGeometry(option.geometry.size[0], option.geometry.size[1], option.geometry.size[2])
     const skyBoxMaterial = new THREE.MeshBasicMaterial({
       color: option.material.color,
@@ -29,7 +29,7 @@ class SceneUtil {
     this.scene.add(skyBox)
 
   }
-  createAmbientLight (option) {
+  createAmbientLight(option) {
     let linghtPoint = new THREE.SphereGeometry(0.3);
     let linghtPointMaterial = new THREE.MeshBasicMaterial({
       color: 0xac6c25,
@@ -45,7 +45,7 @@ class SceneUtil {
     this.scene.add(ambientLight);
   }
 
-  createGroundBox (option) {
+  createGroundBox(option) {
     var circleGeometry = new THREE.CircleGeometry(option.geometry.size[0], option.geometry.size[1]);
     var circleMaterial = new THREE.MeshPhongMaterial({
       color: option.material.color,
@@ -61,7 +61,7 @@ class SceneUtil {
     this.scene.add(circle);
   }
 
-  createController () {
+  createController() {
     let Orbit = new OrbitControls(this.camera, this.renderer.domElement);
     /**
      * 移动相机的时候加一点阻尼, 这样有真实感
@@ -88,7 +88,7 @@ class SceneUtil {
     this.scene.add(Orbit)
 
   }
-  __createGround () {
+  __createGround() {
     const geometry = new THREE.PlaneBufferGeometry(1000, 1000, 100, 100);
     const skyBoxMaterial = new THREE.MeshBasicMaterial({
       color: 0x000000,
@@ -100,7 +100,7 @@ class SceneUtil {
     // mesh.rotation.y = .25 * Math.PI
     this.scene.add(mesh);
   }
-  __createAxes () {
+  __createAxes() {
     /**
      * x 轴为红色
      * y 轴为绿色
@@ -110,7 +110,7 @@ class SceneUtil {
     axes.position.set(0, 0, 0)
     this.scene.add(axes)
   }
-  __init () {
+  __init() {
     this.__createScene()
     this.__createCamera()
     this.__createRenderer()
@@ -119,14 +119,14 @@ class SceneUtil {
     this.__createController()
     this.renderer.render(this.scene, this.camera)
   }
-  __createScene () {
+  __createScene() {
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.Fog(0xffffff, .05, 1000)
     this.scene.name = 'scene'
   }
 
 
-  __createCamera () {
+  __createCamera() {
 
     let focusPoint = new THREE.SphereGeometry(.1);
     let focusPointMaterial = new THREE.MeshBasicMaterial({
@@ -157,7 +157,7 @@ class SceneUtil {
     this.scene.add(camera)
     camera.name = 'camera'
   }
-  __createController () {
+  __createController() {
     let Orbit = new OrbitControls(this.camera, this.renderer.domElement);
     /**
      * 移动相机的时候加一点阻尼, 这样有真实感
@@ -184,7 +184,7 @@ class SceneUtil {
     Orbit.target = this.focusPointMesh.position
     this.ctrl = Orbit;
   }
-  __createRenderer () {
+  __createRenderer() {
     const { drawingBufferWidth: width, drawingBufferHeight: height } = this.gl;
     let renderer
     renderer = new Renderer({ gl: this.gl });
@@ -197,4 +197,3 @@ class SceneUtil {
 }
 
 export default SceneUtil
-

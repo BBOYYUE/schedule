@@ -8,10 +8,10 @@ import { Dimensions } from 'react-native'
 export default function ThreeFiber() {
     return (
         <Canvas>
-            <pointLight/>
+            <pointLight />
             <mesh>
                 <sphereBufferGeometry />
-                <meshStandardMaterial  />
+                <meshStandardMaterial />
             </mesh>
         </Canvas>
     )

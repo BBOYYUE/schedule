@@ -3,7 +3,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, useColorScheme, StyleSheet, Text, View } from 'react-native';
 import ExpoThreeTest from './pages/test/ExpoThreeTest'
 import { Dimensions } from 'react-native'
-import ThreeFiber from  "./pages/test/ThreeFiber"
+import ThreeFiber from "./pages/test/ThreeFiber"
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 
@@ -11,6 +11,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark'
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
   const backgroundStyle = {
     backgroundColor: isDarkMode ? 'black' : 'white',
     width: Dimensions.get('screen').width,
@@ -21,9 +22,10 @@ export default function App() {
       {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
       > */}
-        <StatusBar style={'auto'} translucent={true} />
-        <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
+      <StatusBar style={'auto'} translucent={true} />
+      <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
       {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
+
