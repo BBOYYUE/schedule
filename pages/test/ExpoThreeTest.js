@@ -5,12 +5,15 @@ import { Dimensions } from 'react-native'
 import SceneUtil from "../../util/three.util.js"
 import { Renderer, THREE, TextureLoader } from 'expo-three';
 import { Asset } from 'expo-asset';
-// import { OrbitControls } from '@react-three/drei/native'
-// import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { useSelector, useDispatch } from 'react-redux'
+import { loadding, loaded } from "../../feature/loaddingSlice"
+
+
 
 let isDarkMode
 export default function ExpoThreeTest(props) {
+  const dispatch = useDispatch()
+  dispatch(loaded())
   isDarkMode = props.isDarkMode
   return (
     <View style={{ width: Dimensions.get('screen').width, height: Dimensions.get('screen').height, justifyContent: 'center', alignItems: 'center' }}>
@@ -70,28 +73,16 @@ class Scene {
     this.ambientLight.intensity = 8
     this.ambientLight.position.set(0, 0, 0)
     this.scene.add(this.ambientLight)
-
-
-    // this.orbit = new OrbitControls(this.camera, gl)
-    // this.orbit.enableDamping = true;
-    // this.orbit.dampingFactor = 1;
-    // this.orbit.minPolarAngle = .25 * Math.PI;
-    // this.orbit.maxPolarAngle = .45 * Math.PI;
-    // this.orbit.maxDistance = 500;
-    // this.orbit.minDistance = 20;
   }
 }
 
 function onContextCreate(gl) {
-  // let scene = new SceneUtil(gl, isDarkMode)
-  // scene.__init()
   let scene = new Scene(gl)
   const render = () => {
     requestAnimationFrame(render);
     let sceneColor = isDarkMode ? 'black' : 'white'
     scene.renderer.setClearColor(sceneColor);
     scene.renderer.render(scene.scene, scene.camera);
-    // scene.orbit.update()
     gl.endFrameEXP();
   };
   render();

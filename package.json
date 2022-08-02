@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-three/drei": "^9.19.0",
     "@react-three/fiber": "^8.2.2",
+    "@reduxjs/toolkit": "^1.8.3",
     "expo": "^45.0.0",
     "expo-gl": "~11.3.0",
     "expo-gl-cpp": "~11.3.0",
@@ -23,6 +24,9 @@
     "react-native": "0.68.2",
     "react-native-gesture-handler": "~2.2.1",
     "react-native-web": "0.17.7",
+    "react-native-webview": "^11.23.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
     "three": "^0.143.0"
   },
   "devDependencies": {
