@@ -3,10 +3,14 @@ import React from 'react';
 import { SafeAreaView, ScrollView, useColorScheme, StyleSheet, Text, View } from 'react-native';
 import ExpoThreeTest from './pages/test/ExpoThreeTest'
 import { Dimensions } from 'react-native'
-import ThreeFiber from  "./pages/test/ThreeFiber"
+import ThreeFiber from "./pages/test/ThreeFiber"
+import WebViewTest from './pages/test/ExpoWebViewTest';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 
-export default function App() {
+export default function App () {
   const isDarkMode = useColorScheme() === 'dark'
   const backgroundStyle = {
     backgroundColor: isDarkMode ? 'black' : 'white',
@@ -18,9 +22,10 @@ export default function App() {
       {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
       > */}
-        <StatusBar style={'auto'} translucent={true} />
-        <ThreeFiber></ThreeFiber>
-        {/* <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest> */}
+      <StatusBar style={'auto'} translucent={true} />
+      {/* <ThreeFiber></ThreeFiber> */}
+      <WebViewTest />
+      {/* <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest> */}
       {/* </ScrollView> */}
     </SafeAreaView>
   );
