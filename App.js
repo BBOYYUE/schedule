@@ -2,16 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView, ScrollView, useColorScheme, StyleSheet, Text, View } from 'react-native';
 import ExpoThreeTest from './pages/test/ExpoThreeTest'
-import { Dimensions } from 'react-native'
+import { Dimensions, Animated } from 'react-native'
 import * as ScreenOrientation from 'expo-screen-orientation';
 import WebViewTest from './pages/test/ExpoWebViewTest';
 import store from './store'
 import { Provider } from 'react-redux'
 import Loadding from './pages/loadding';
 
+export default function App () {
 
-
-export default function App() {
   const isDarkMode = useColorScheme() === 'dark'
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
   const backgroundStyle = {
@@ -20,21 +19,18 @@ export default function App() {
     height: Dimensions.get('screen').height
   };
 
-
   return (
     <Provider store={store}>
       <Loadding></Loadding>
       <SafeAreaView style={backgroundStyle} >
-        <ScrollView
+        {/* <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-        >
-          <StatusBar style={'auto'} translucent={true} />
-          <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
-          {/* <ThreeFiber></ThreeFiber> */}
-          {/* <WebViewTest /> */}
-        </ScrollView>
+        > */}
+        <StatusBar style={'auto'} translucent={true} />
+        <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
+        {/* </ScrollView> */}
       </SafeAreaView>
-    </Provider>
+    </Provider >
   );
 }
 
