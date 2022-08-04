@@ -20,6 +20,8 @@ import expo.modules.ReactNativeHostWrapper;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import cn.reactnative.modules.update.UpdateContext;
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
     this,
@@ -28,7 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
-
+    @Override
+    protected String getJSBundleFile() {
+        return UpdateContext.getBundleUrl(MainApplication.this);
+    }
     @Override
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")

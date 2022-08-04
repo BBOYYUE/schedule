@@ -9,8 +9,11 @@ import WebViewTest from './pages/test/ExpoWebViewTest';
 import store from './store'
 import { Provider } from 'react-redux'
 import Loadding from './pages/loadding';
+import { simpleUpdate } from 'react-native-update';
+import _updateConfig from './update.json';
+const { appKey } = _updateConfig[Platform.OS];
 
-export default function App () {
+function App () {
 
   const isDarkMode = useColorScheme() === 'dark'
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
@@ -35,4 +38,6 @@ export default function App () {
     </Provider >
   );
 }
+
+export default simpleUpdate(App, { appKey });
 
