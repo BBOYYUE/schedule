@@ -1,6 +1,6 @@
 import { ExpoWebGLRenderingContext, GLView } from 'expo-gl';
-import React, { useState } from 'react';
-import { View, Text, PanResponder, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, PanResponder, Dimensions, useColorScheme } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import { loadding, loaded } from "../../feature/loaddingSlice"
 import SceneGrid from "../../util/three/scene/grid"
@@ -10,36 +10,35 @@ import { OrbitControls } from '../../util/three/controller/OrbitControls';
 // import { useSharedValue } from 'react-native-reanimated';
 
 
-let isDarkMode
 let orbit
 let camera
-let times = 0
 let panResponder = PanResponder.create({
   onStartShouldSetPanResponder: (evt, gestureState) => true,
   onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
   onMoveShouldSetPanResponder: (evt, gestureState) => true,
   onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-  onPanResponderGrant ({ nativeEvent }) {
+  onPanResponderGrant({ nativeEvent }) {
     if (!orbit) return;
     orbit.onTouchStart(nativeEvent)
     camera = orbit.object
   },
-  onPanResponderMove ({ nativeEvent }) {
+  onPanResponderMove({ nativeEvent }) {
     if (!orbit) return;
     orbit.onTouchMove(nativeEvent)
     camera = orbit.object
   },
 });
 
-export default function ExpoThreeTest (props) {
+export default function ExpoThreeTest(props) {
   const dispatch = useDispatch()
-  isDarkMode = props.isDarkMode
-
-  async function onContextCreate (gl) {
+  const isDarkMode = useColorScheme() === 'dark'
+  let intervalId;
+  let scene
+  async function onContextCreate(gl) {
     const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
-    let scene = await new ScenePoint(gl)
+    scene = await new ScenePoint(gl)
     dispatch(loaded())
-    setInterval(function () {
+    intervalId = setInterval(function () {
       scene.pointMaterial.dispose()
       scene.pointMaterial = new THREE.PointsMaterial({
         size: 1,
@@ -62,6 +61,13 @@ export default function ExpoThreeTest (props) {
     };
     render();
   }
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalId)
+      show = false
+    }
+  });
+
   return (
     <View
       {...panResponder.panHandlers}
@@ -69,7 +75,9 @@ export default function ExpoThreeTest (props) {
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0
       }}>
       <GLView
         style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}

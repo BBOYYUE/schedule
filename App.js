@@ -1,19 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, ScrollView, useColorScheme, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, useColorScheme, StyleSheet, Text, View, Button } from 'react-native';
 import ExpoThreeTest from './pages/test/ExpoThreeTest'
 import { Dimensions, Animated } from 'react-native'
 import * as ScreenOrientation from 'expo-screen-orientation';
 import WebViewTest from './pages/test/ExpoWebViewTest';
 // import ExpoThreeOrbitTest from "./pages/test/ExpoThreeOrbitTest"
 import store from './store'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 import Loadding from './pages/loadding';
 import { simpleUpdate } from 'react-native-update';
 import _updateConfig from './update.json';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { Icon } from "@rneui/themed";
+/**
+ * 这里的 appKey 是为了实现热更新
+ */
 const { appKey } = _updateConfig[Platform.OS];
-
-function App () {
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+function App() {
 
   const isDarkMode = useColorScheme() === 'dark'
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
@@ -22,19 +30,103 @@ function App () {
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height
   };
-
   return (
     <Provider store={store}>
       <Loadding></Loadding>
-      <SafeAreaView style={backgroundStyle} >
-        {/* <ScrollView
+      {/* <SafeAreaView style={backgroundStyle} > */}
+      <StatusBar style={'auto'} translucent={true} />
+      {/* <ExpoThreeTest></ExpoThreeTest> */}
+      <NavigationContainer>
+        <Tab.Navigator initialRouteName="Home" >
+          {/* <Stack.Navigator initialRouteName="Home" > */}
+          <Tab.Screen name="Home" options={{
+            title: "日程列表",
+            headerStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            tabBarIcon: ({ color }) => (
+              <Icon
+                color={color} size={26}
+                name='rowing' />
+            ),
+            tabBarStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            headerTintColor: isDarkMode ? 'white' : 'black',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+            {(props) => {
+              return <View {...props} style={
+                { backgroundColor: isDarkMode ? 'black' : 'white', flex: 1 }
+              }>
+                <Text>首页</Text>
+              </View>
+            }}
+          </Tab.Screen>
+          <Tab.Screen name="a" options={{
+            title: "页面a",
+            headerStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            tabBarIcon: ({ color }) => (
+              <Icon
+                color={color} size={26}
+                name='rowing' />
+            ),
+            tabBarStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            headerTintColor: isDarkMode ? 'white' : 'black',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+            {(props) => {
+              return <View {...props} style={
+                { backgroundColor: isDarkMode ? 'black' : 'white', flex: 1 }
+              }>
+                <Text>页面a</Text>
+              </View>
+            }}
+          </Tab.Screen>
+          <Tab.Screen name="b" options={{
+            title: "页面b",
+            headerStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            tabBarIcon: ({ color }) => (
+              <Icon
+                color={color} size={26}
+                name='rowing' />
+            ),
+            tabBarStyle: {
+              backgroundColor: isDarkMode ? 'black' : 'white',
+            },
+            headerTintColor: isDarkMode ? 'white' : 'black',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+            {(props) => {
+              return <View {...props} style={
+                { backgroundColor: isDarkMode ? 'black' : 'white', flex: 1 }
+              }>
+                <Text>页面b</Text>
+              </View>
+            }}
+          </Tab.Screen>
+          {/* <ScrollView
           contentInsetAdjustmentBehavior="automatic"
         > */}
-        <StatusBar style={'auto'} translucent={true} />
-        <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
-        {/* <ExpoThreeOrbitTest ></ExpoThreeOrbitTest> */}
-        {/* </ScrollView> */}
-      </SafeAreaView>
+          {/* <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest> */}
+          {/* <ExpoThreeOrbitTest ></ExpoThreeOrbitTest> */}
+          {/* </ScrollView> */}
+          {/* </Stack.Navigator> */}
+        </Tab.Navigator>
+      </NavigationContainer>
+      {/* </SafeAreaView> */}
     </Provider >
   );
 }
