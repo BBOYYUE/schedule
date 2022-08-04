@@ -6,11 +6,12 @@ export default class Scene {
     this.width = width
     this.height = height
     this.scene = new THREE.Scene()
-    // this.scene.fog = new THREE.Fog(color, 0, 400)
+
     this.focusPoint = new THREE.Mesh(
       new THREE.SphereGeometry(.1),
       new THREE.MeshBasicMaterial({
         transparent: true,
+        opacity: 0,
         color: 0xffffff,
       })
     );

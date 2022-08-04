@@ -5,6 +5,7 @@ import ExpoThreeTest from './pages/test/ExpoThreeTest'
 import { Dimensions, Animated } from 'react-native'
 import * as ScreenOrientation from 'expo-screen-orientation';
 import WebViewTest from './pages/test/ExpoWebViewTest';
+// import ExpoThreeOrbitTest from "./pages/test/ExpoThreeOrbitTest"
 import store from './store'
 import { Provider } from 'react-redux'
 import Loadding from './pages/loadding';
@@ -28,6 +29,7 @@ export default function App () {
         > */}
         <StatusBar style={'auto'} translucent={true} />
         <ExpoThreeTest isDarkMode={isDarkMode}></ExpoThreeTest>
+        {/* <ExpoThreeOrbitTest ></ExpoThreeOrbitTest> */}
         {/* </ScrollView> */}
       </SafeAreaView>
     </Provider >
