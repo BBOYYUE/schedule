@@ -55,7 +55,7 @@ export default function ExpoThreeTest () {
     orbit.height = height
     camera = scene.camera
     const render = () => {
-      renderId = requestAnimationFrame(render);
+      // renderId = requestAnimationFrame(render);
       let sceneColor = isDarkMode ? 'black' : 'white'
       scene.renderer.setClearColor(sceneColor);
       scene.scene.fog = new THREE.Fog(sceneColor, 0, 400)

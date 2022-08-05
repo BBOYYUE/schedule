@@ -58,7 +58,7 @@ function BottomTabScreen () {
       }}
     >
       <Tab.Screen name="test-a" component={ExpoThreeTest} />
-      <Tab.Screen name="test-b" component={TestB} />
+      <Tab.Screen name="test-b" component={ExpoThreeTest} />
     </Tab.Navigator>
   )
 }
