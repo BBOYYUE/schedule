@@ -17,24 +17,27 @@ let panResponder = PanResponder.create({
   onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
   onMoveShouldSetPanResponder: (evt, gestureState) => true,
   onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-  onPanResponderGrant({ nativeEvent }) {
+  onPanResponderGrant ({ nativeEvent }) {
     if (!orbit) return;
     orbit.onTouchStart(nativeEvent)
     camera = orbit.object
   },
-  onPanResponderMove({ nativeEvent }) {
+  onPanResponderMove ({ nativeEvent }) {
     if (!orbit) return;
     orbit.onTouchMove(nativeEvent)
     camera = orbit.object
   },
 });
 
-export default function ExpoThreeTest(props) {
+export default function ExpoThreeTest () {
   const dispatch = useDispatch()
   const isDarkMode = useColorScheme() === 'dark'
   let intervalId;
   let scene
-  async function onContextCreate(gl) {
+  let GlviewImpl
+  let renderId;
+  async function onContextCreate (gl) {
+    GlviewImpl = gl
     const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
     scene = await new ScenePoint(gl)
     dispatch(loaded())
@@ -52,7 +55,7 @@ export default function ExpoThreeTest(props) {
     orbit.height = height
     camera = scene.camera
     const render = () => {
-      requestAnimationFrame(render);
+      // renderId = requestAnimationFrame(render);
       let sceneColor = isDarkMode ? 'black' : 'white'
       scene.renderer.setClearColor(sceneColor);
       scene.scene.fog = new THREE.Fog(sceneColor, 0, 400)
@@ -61,19 +64,17 @@ export default function ExpoThreeTest(props) {
     };
     render();
   }
-  useEffect(() => {
-    return () => {
-      clearInterval(intervalId)
-      show = false
-    }
-  });
+  function clear () {
+    clearInterval(intervalId)
+    cancelAnimationFrame(renderId)
+  }
+
 
   return (
     <View
       {...panResponder.panHandlers}
       style={{
-        width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
