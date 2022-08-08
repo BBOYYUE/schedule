@@ -10,6 +10,8 @@ import ExpoThreeTest from './ExpoThreeTest';
 import CrassCollector from '../home/crassCollector';
 import WeekFlag from "../home/weekFlag"
 import NowTime from "../home/nowTime"
+import TaskLisk from '../home/taskList';
+import PostTest from "../test/PostTest"
 
 
 const LeftDrawer = createDrawerNavigator();
@@ -51,7 +53,7 @@ const leftMenuList = [
     component: (props) => <PostList {...props}></PostList>
   },
 ]
-function LeftDrawerScreen() {
+function LeftDrawerScreen () {
   const isDarkMode = useColorScheme() === 'dark'
   return (
     <LeftDrawer.Navigator
@@ -77,20 +79,20 @@ function LeftDrawerScreen() {
     </LeftDrawer.Navigator>
   );
 }
-function PastGoals() {
+function PastGoals () {
   return <View><Text>历史周目标</Text></View>
 }
-function CompletedTask() {
+function CompletedTask () {
   return <View><Text>已完成时刻</Text></View>
 }
-function QuitTask() {
+function QuitTask () {
   return <View><Text>已取消时刻</Text></View>
 }
-function TrashCanTask() {
+function TrashCanTask () {
   return <View><Text>集草器垃圾桶</Text></View>
 }
-function PostList() {
-  return <View><Text>单核工作法文章</Text></View>
+function PostList () {
+  return <PostTest>单核工作法文章</PostTest>
 }
 
 
@@ -113,7 +115,7 @@ const bottomMenuList = [
     name: "TaskList",
     title: "快捷清单",
     icon: "tasks",
-    component: (props) => <View {...props}><Text>任务清单</Text></View>
+    component: (props) => <TaskLisk {...props}></TaskLisk>
   },
   {
     name: "GrassCollector",
@@ -123,7 +125,7 @@ const bottomMenuList = [
   },
 
 ]
-function BottomTabScreen() {
+function BottomTabScreen () {
 
   const isDarkMode = useColorScheme() === 'dark'
   BottomTabList = () => {
@@ -162,7 +164,7 @@ function BottomTabScreen() {
 }
 
 
-export default function DrawerNavigationTest() {
+export default function DrawerNavigationTest () {
   return (
     <NavigationContainer>
       <LeftDrawerScreen />
