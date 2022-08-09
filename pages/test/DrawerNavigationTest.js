@@ -53,7 +53,7 @@ const leftMenuList = [
     component: (props) => <PostList {...props}></PostList>
   },
 ]
-function LeftDrawerScreen () {
+function LeftDrawerScreen() {
   const isDarkMode = useColorScheme() === 'dark'
   return (
     <LeftDrawer.Navigator
@@ -79,20 +79,20 @@ function LeftDrawerScreen () {
     </LeftDrawer.Navigator>
   );
 }
-function PastGoals () {
+function PastGoals() {
   return <View><Text>历史周目标</Text></View>
 }
-function CompletedTask () {
+function CompletedTask() {
   return <View><Text>已完成时刻</Text></View>
 }
-function QuitTask () {
+function QuitTask() {
   return <View><Text>已取消时刻</Text></View>
 }
-function TrashCanTask () {
+function TrashCanTask() {
   return <View><Text>集草器垃圾桶</Text></View>
 }
-function PostList () {
-  return <PostTest>单核工作法文章</PostTest>
+function PostList() {
+  return <PostTest>一些理论支持</PostTest>
 }
 
 
@@ -125,7 +125,7 @@ const bottomMenuList = [
   },
 
 ]
-function BottomTabScreen () {
+function BottomTabScreen() {
 
   const isDarkMode = useColorScheme() === 'dark'
   BottomTabList = () => {
@@ -164,7 +164,7 @@ function BottomTabScreen () {
 }
 
 
-export default function DrawerNavigationTest () {
+export default function DrawerNavigationTest() {
   return (
     <NavigationContainer>
       <LeftDrawerScreen />
